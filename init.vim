@@ -5,12 +5,12 @@ call plug#begin('~/.config/nvim/plugged')
 
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
+    \ 'do': '/bin/sh install.sh',
     \ }
 
 " (Optional) Multi-entry selection UI.
 Plug 'junegunn/fzf'
-Plug 'numkil/ag.nvim' 
+"Plug 'numkil/ag.nvim' 
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'mhinz/vim-startify'
@@ -126,7 +126,7 @@ nnoremap <Leader>E :PHPExpandFQCN<cr>
 let g:php_manual_online_search_shortcut = '<leader>k'
 
 map <C-n> :NERDTreeToggle<CR>
-nnoremap <leader>n :NERDTreeToggle<cr>
+nnoremap <Leader>n :NERDTreeToggle<cr>
 
 set shortmess+=c
 
@@ -137,7 +137,7 @@ let mapleader=","
 
 set background=dark
 
-set shell=zsh\ --login
+"set shell=zsh\ --login
 "Spaces, not tabs
 set shiftwidth=4
 set tabstop=4
