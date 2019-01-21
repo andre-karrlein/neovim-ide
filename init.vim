@@ -10,7 +10,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 
 " (Optional) Multi-entry selection UI.
 Plug 'junegunn/fzf'
-"Plug 'numkil/ag.nvim' 
+Plug 'numkil/ag.nvim' 
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'mhinz/vim-startify'
