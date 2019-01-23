@@ -10,7 +10,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 
 " (Optional) Multi-entry selection UI.
 Plug 'junegunn/fzf'
-Plug 'numkil/ag.nvim' 
+Plug 'numkil/ag.nvim'
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'mhinz/vim-startify'
@@ -27,7 +27,7 @@ Plug 'phpactor/phpactor', { 'do': ':call phpactor#Update()', 'for': 'php'}
 Plug 'arnaud-lb/vim-php-namespace', {'for': 'php'}
 Plug 'alvan/vim-php-manual', {'for': 'php'}
 
-Plug 'Shougo/deoplete.nvim', {'for': 'swift'}
+Plug 'Shougo/deoplete.nvim'
 Plug 'mitsuse/autocomplete-swift', {'for': 'swift'}
 Plug 'keith/swift.vim', {'for': 'swift'}
 Plug 'kballard/vim-swift', {'for': 'swift'}
@@ -35,6 +35,8 @@ Plug 'landaire/deoplete-swift', {'for': 'swift'}
 Plug 'aciidb0mb3r/SwiftDoc.vim', {'for': 'swift'}
 Plug 'cfdrake/ultisnips-swift', {'for': 'swift'}
 
+Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
+Plug 'zchee/deoplete-go', { 'do': 'make'}
 
 " Initialize plugin system
 call plug#end()
@@ -150,3 +152,15 @@ nnoremap <C-s> :w<CR>
 inoremap <C-s> <Esc>:w<CR>
 vnoremap <C-s> <Esc>:w<CR>
 nnoremap <Leader>h :nohl<CR>
+
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_auto_sameids = 1
+let g:go_auto_type_info = 1
+let g:go_version_warning = 0
