@@ -1,3 +1,3 @@
-# Neovim IDE for PHP and Swift
+# Neovim IDE
 
 _TBA_
