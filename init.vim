@@ -14,6 +14,7 @@ Plug 'numkil/ag.nvim'
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'mhinz/vim-startify'
+Plug 'mhartington/oceanic-next'
 
 Plug 'SirVer/ultisnips' | Plug 'phux/vim-snippets'
 Plug 'StanAngeloff/php.vim', {'for': 'php'}
@@ -138,6 +139,7 @@ set shortmess+=c
 let mapleader=","
 
 set background=dark
+colorscheme OceanicNext
 
 "set shell=zsh\ --login
 "Spaces, not tabs
