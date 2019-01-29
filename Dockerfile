@@ -45,4 +45,4 @@ ENV TERM xterm256-color
 RUN mkdir /code
 WORKDIR /code
 
-CMD nvim
+ENTRYPOINT [ "nvim" ]
