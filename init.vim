@@ -135,6 +135,7 @@ set shortmess+=c
 
 " AK1 settings
 
+set mouse=a
 "<Leader> key is ,
 let mapleader=","
 
