@@ -29,13 +29,6 @@ Plug 'arnaud-lb/vim-php-namespace', {'for': 'php'}
 Plug 'alvan/vim-php-manual', {'for': 'php'}
 
 Plug 'Shougo/deoplete.nvim'
-Plug 'mitsuse/autocomplete-swift', {'for': 'swift'}
-Plug 'keith/swift.vim', {'for': 'swift'}
-Plug 'kballard/vim-swift', {'for': 'swift'}
-Plug 'landaire/deoplete-swift', {'for': 'swift'}
-Plug 'aciidb0mb3r/SwiftDoc.vim', {'for': 'swift'}
-Plug 'cfdrake/ultisnips-swift', {'for': 'swift'}
-
 Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 
@@ -43,8 +36,6 @@ Plug 'zchee/deoplete-go', { 'do': 'make'}
 call plug#end()
 
 nnoremap Q <nop>
-
-autocmd BufNewFile,BufRead *.swift set filetype=swift
 
 set hidden
 
@@ -185,3 +176,10 @@ let g:go_auto_sameids = 1
 let g:go_auto_type_info = 1
 let g:go_version_warning = 0
 let g:go_fmt_command = "goimports"
+
+let g:deoplete#sources#go#gocode_binary = '/root/go/bin/gocode'
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+let g:deoplete#enable_at_startup = 1
+
+set completeopt+=noinsert
+set completeopt+=noselect
