@@ -15,14 +15,15 @@ Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'mhinz/vim-startify'
 Plug 'mhartington/oceanic-next'
+Plug 'w0rp/ale'
 
-Plug 'SirVer/ultisnips' | Plug 'phux/vim-snippets'
+Plug 'SirVer/ultisnips', {'for': 'php'} | Plug 'phux/vim-snippets', {'for': 'php'}
 Plug 'StanAngeloff/php.vim', {'for': 'php'}
 Plug 'adoy/vim-php-refactoring-toolbox', {'for': 'php'}
-Plug 'ncm2/ncm2'
+Plug 'ncm2/ncm2', {'for': 'php'}
 Plug 'phpactor/ncm2-phpactor', {'for': 'php'}
-Plug 'ncm2/ncm2-ultisnips'
-Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2-ultisnips', {'for': 'php'}
+Plug 'roxma/nvim-yarp', {'for': 'php'}
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'phpactor/phpactor', { 'do': ':call phpactor#Update()', 'for': 'php'}
 Plug 'arnaud-lb/vim-php-namespace', {'for': 'php'}
@@ -31,6 +32,8 @@ Plug 'alvan/vim-php-manual', {'for': 'php'}
 Plug 'Shougo/deoplete.nvim'
 Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
 Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 
 " Initialize plugin system
 call plug#end()
@@ -45,9 +48,6 @@ augroup ncm2
   au User Ncm2PopupOpen set completeopt=noinsert,menuone,noselect
   au User Ncm2PopupClose set completeopt=menuone
 augroup END
-
-" parameter expansion for selected entry via Enter
-inoremap <silent> <expr> <CR> (pumvisible() ? ncm2_ultisnips#expand_or("\<CR>", 'n') : "\<CR>")
 
 " cycle through completion entries with tab/shift+tab
 inoremap <expr> <TAB> pumvisible() ? "\<c-n>" : "\<TAB>"
@@ -67,9 +67,24 @@ nnoremap <silent><Leader>ee :call phpactor#ExtractExpression(v:false)<CR>
 " extract interface
 nnoremap <silent><Leader>rei :call phpactor#ClassInflect()<CR>
 
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+"let g:UltiSnipsExpandTrigger="<C-j>"
+"let g:UltiSnipsJumpForwardTrigger="<C-j>"
+"let g:UltiSnipsJumpBackwardTrigger="<C-b>"
+
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+            \ "\<Plug>(neosnippet_expand_or_jump)"
+            \: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+            \ "\<Plug>(neosnippet_expand_or_jump)"
+            \: "\<TAB>"
+
+if has('conceal')
+    set conceallevel=2 concealcursor=i
+endif
 
 " PHP7
 let g:ultisnips_php_scalar_types = 1
@@ -176,10 +191,14 @@ let g:go_auto_sameids = 1
 let g:go_auto_type_info = 1
 let g:go_version_warning = 0
 let g:go_fmt_command = "goimports"
+let g:go_snippet_engine = "neosnippet"
 
 let g:deoplete#sources#go#gocode_binary = '/root/go/bin/gocode'
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 let g:deoplete#enable_at_startup = 1
 
-set completeopt+=noinsert
-set completeopt+=noselect
+" Error and warning signs.
+let g:ale_sign_error = '⤫'
+let g:ale_sign_warning = '⚠'
+" Enable integration with airline.
+let g:airline#extensions#ale#enabled = 1
