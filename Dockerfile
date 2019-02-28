@@ -9,13 +9,6 @@ the_silver_searcher \
 curl \
 python \
 neovim \
-php \
-php7-tokenizer \
-php7-dom \
-php7-mbstring \
-php7-xmlwriter \
-php7-xml \
-composer \
 python-dev \
 bash \
 gcc \
@@ -36,9 +29,6 @@ COPY ./init.vim /root/.config/nvim/init.vim
 
 RUN nvim --headless -c "PlugInstall! | qall! " && \
 nvim --headless +UpdateRemotePlugins +qall
-
-RUN cd /root/.config/nvim/plugged/phpactor && \
-composer install
 
 ENV TERM xterm256-color
 

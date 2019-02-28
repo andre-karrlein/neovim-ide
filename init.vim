@@ -16,18 +16,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'mhinz/vim-startify'
 Plug 'mhartington/oceanic-next'
 Plug 'w0rp/ale'
-
-Plug 'SirVer/ultisnips', {'for': 'php'} | Plug 'phux/vim-snippets', {'for': 'php'}
-Plug 'StanAngeloff/php.vim', {'for': 'php'}
-Plug 'adoy/vim-php-refactoring-toolbox', {'for': 'php'}
-Plug 'ncm2/ncm2', {'for': 'php'}
-Plug 'phpactor/ncm2-phpactor', {'for': 'php'}
-Plug 'ncm2/ncm2-ultisnips', {'for': 'php'}
-Plug 'roxma/nvim-yarp', {'for': 'php'}
-Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'phpactor/phpactor', { 'do': ':call phpactor#Update()', 'for': 'php'}
-Plug 'arnaud-lb/vim-php-namespace', {'for': 'php'}
-Plug 'alvan/vim-php-manual', {'for': 'php'}
+Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'Shougo/deoplete.nvim'
 Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
@@ -42,34 +31,9 @@ nnoremap Q <nop>
 
 set hidden
 
-augroup ncm2
-  au!
-  autocmd BufEnter * call ncm2#enable_for_buffer()
-  au User Ncm2PopupOpen set completeopt=noinsert,menuone,noselect
-  au User Ncm2PopupClose set completeopt=menuone
-augroup END
-
 " cycle through completion entries with tab/shift+tab
 inoremap <expr> <TAB> pumvisible() ? "\<c-n>" : "\<TAB>"
 inoremap <expr> <s-tab> pumvisible() ? "\<c-p>" : "\<TAB>"
-
-" context-aware menu with all functions (ALT-m)
-nnoremap <C-m> :call phpactor#ContextMenu()<cr>
-
-nnoremap gd :call phpactor#GotoDefinition()<CR>
-nnoremap gr :call phpactor#FindReferences()<CR>
-
-" Extract method from selection
-vmap <silent><Leader>em :<C-U>call phpactor#ExtractMethod()<CR>
-" extract variable
-vnoremap <silent><Leader>ee :<C-U>call phpactor#ExtractExpression(v:true)<CR>
-nnoremap <silent><Leader>ee :call phpactor#ExtractExpression(v:false)<CR>
-" extract interface
-nnoremap <silent><Leader>rei :call phpactor#ClassInflect()<CR>
-
-"let g:UltiSnipsExpandTrigger="<C-j>"
-"let g:UltiSnipsJumpForwardTrigger="<C-j>"
-"let g:UltiSnipsJumpBackwardTrigger="<C-b>"
 
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -85,54 +49,6 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
-
-" PHP7
-let g:ultisnips_php_scalar_types = 1
-
-let g:vim_php_refactoring_default_property_visibility = 'private'
-let g:vim_php_refactoring_default_method_visibility = 'private'
-let g:vim_php_refactoring_auto_validate_visibility = 1
-let g:vim_php_refactoring_phpdoc = "pdv#DocumentCurrentLine"
-let g:vim_php_refactoring_use_default_mapping = 0
-nnoremap <leader>rlv :call PhpRenameLocalVariable()<CR>
-nnoremap <leader>rcv :call PhpRenameClassVariable()<CR>
-nnoremap <leader>rrm :call PhpRenameMethod()<CR>
-nnoremap <leader>reu :call PhpExtractUse()<CR>
-vnoremap <leader>rec :call PhpExtractConst()<CR>
-nnoremap <leader>rep :call PhpExtractClassProperty()<CR>
-nnoremap <leader>rnp :call PhpCreateProperty()<CR>
-nnoremap <leader>rdu :call PhpDetectUnusedUseStatements()<CR>
-nnoremap <leader>rsg :call PhpCreateSettersAndGetters()<CR>
-
-let g:phpactor_executable = '~/.config/nvim/plugged/phpactor/bin/phpactor'
-
-function! PHPModify(transformer)
-    :update
-    let l:cmd = "silent !".g:phpactor_executable." class:transform ".expand('%').' --transform='.a:transformer
-    execute l:cmd
-endfunction
-
-nnoremap <leader>rcc :call PhpConstructorArgumentMagic()<cr>
-function! PhpConstructorArgumentMagic()
-    " update phpdoc
-    if exists("*UpdatePhpDocIfExists")
-        normal! gg
-        /__construct
-        normal! n
-        :call UpdatePhpDocIfExists()
-        :w
-    endif
-    :call PHPModify("complete_constructor")
-endfunction
-
-nnoremap <leader>ric :call PHPModify("implement_contracts")<cr>
-nnoremap <leader>raa :call PHPModify("add_missing_properties")<cr>
-
-nnoremap <Leader>u :PHPImportClass<cr>
-nnoremap <Leader>e :PHPExpandFQCNAbsolute<cr>
-nnoremap <Leader>E :PHPExpandFQCN<cr>
-
-let g:php_manual_online_search_shortcut = '<leader>k'
 
 map <C-n> :NERDTreeToggle<CR>
 nnoremap <Leader>n :NERDTreeToggle<cr>
@@ -202,3 +118,5 @@ let g:ale_sign_error = '⤫'
 let g:ale_sign_warning = '⚠'
 " Enable integration with airline.
 let g:airline#extensions#ale#enabled = 1
+
+let g:tmux_navigator_save_on_switch = 1
