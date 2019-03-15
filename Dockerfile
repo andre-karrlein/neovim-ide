@@ -1,5 +1,4 @@
 FROM alpine:latest
-MAINTAINER André Karrlein <andre@karrlein.com>
 
 RUN apk add --update \
 git \
@@ -14,6 +13,8 @@ bash \
 gcc \
 make \
 go \
+zsh \
+tmux \
 && rm -rf /var/cache/apk/*
 
 RUN apk add --update-cache --no-cache git python3 && \
@@ -24,15 +25,16 @@ pip3 install neovim && \
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+RUN sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+#RUN cd /home && git clone https://github.com/andre-karrlein/dot-ak1.git && ln -s /home/dot-ak1/tmux.conf ~/.tmux.conf && source ~/.tmux.conf
+
 RUN mkdir -p ~/.config/nvim/plugged
 COPY ./init.vim /root/.config/nvim/init.vim
 
 RUN nvim --headless -c "PlugInstall! | qall! " && \
 nvim --headless +UpdateRemotePlugins +qall
 
-ENV TERM xterm256-color
+RUN mkdir /home/code
+WORKDIR /home
 
-RUN mkdir /code
-WORKDIR /code
-
-ENTRYPOINT [ "nvim" ]
+ENTRYPOINT [ "/bin/zsh" ]

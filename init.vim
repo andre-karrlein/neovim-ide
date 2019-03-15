@@ -17,6 +17,7 @@ Plug 'mhinz/vim-startify'
 Plug 'mhartington/oceanic-next'
 Plug 'w0rp/ale'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'tpope/vim-fugitive'
 
 Plug 'Shougo/deoplete.nvim'
 Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
@@ -54,6 +55,17 @@ map <C-n> :NERDTreeToggle<CR>
 nnoremap <Leader>n :NERDTreeToggle<cr>
 
 set shortmess+=c
+
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
 
 " AK1 settings
 
