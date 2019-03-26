@@ -15,6 +15,7 @@ make \
 go \
 zsh \
 tmux \
+musl-dev \
 && rm -rf /var/cache/apk/*
 
 RUN apk add --update-cache --no-cache git python3 && \
@@ -33,6 +34,8 @@ COPY ./init.vim /root/.config/nvim/init.vim
 
 RUN nvim --headless -c "PlugInstall! | qall! " && \
 nvim --headless +UpdateRemotePlugins +qall
+
+RUN cd /root/go/bin && go get -u github.com/cweill/gotests/...
 
 RUN mkdir /home/code
 WORKDIR /home

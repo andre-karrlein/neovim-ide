@@ -24,6 +24,7 @@ Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'buoto/gotests-vim'
 
 " Initialize plugin system
 call plug#end()
@@ -120,6 +121,8 @@ let g:go_auto_type_info = 1
 let g:go_version_warning = 0
 let g:go_fmt_command = "goimports"
 let g:go_snippet_engine = "neosnippet"
+
+let g:gotests_bin = '/root/go/bin/gotests'
 
 let g:deoplete#sources#go#gocode_binary = '/root/go/bin/gocode'
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
