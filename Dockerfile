@@ -16,15 +16,8 @@ go \
 zsh \
 tmux \
 musl-dev \
-openssh-server \
-mosh \
 ca-certificates \
 && rm -rf /var/cache/apk/*
-
-# ssh config
-RUN mkdir /run/sshd
-RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
-RUN sed 's/#Port 22/Port 3222/' -i /etc/ssh/sshd_config
 
 # install neovim plugins
 RUN apk add --update-cache --no-cache git python3 && \
@@ -65,8 +58,5 @@ ENV LANGUAGE="en_US.UTF-8"
 # install gcloud
 RUN curl -sSL https://sdk.cloud.google.com | bash
 ENV PATH $PATH:/root/google-cloud-sdk/bin
-
-EXPOSE 3222 60000-60010/udp
-RUN /usr/sbin/sshd -D
 
 ENTRYPOINT [ "/bin/zsh" ]
