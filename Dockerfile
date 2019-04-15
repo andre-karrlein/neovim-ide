@@ -46,6 +46,7 @@ RUN cd /root/go/bin && go get -u github.com/cweill/gotests/...
 # create code dir
 RUN mkdir /home/code
 WORKDIR /home
+RUN sed -i 's/ash/zsh/g' /etc/passwd
 
 # install kubectl
 RUN curl -L -o /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
