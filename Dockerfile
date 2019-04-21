@@ -16,6 +16,7 @@ go \
 zsh \
 tmux \
 musl-dev \
+openssh-client \
 ca-certificates \
 && rm -rf /var/cache/apk/*
 
