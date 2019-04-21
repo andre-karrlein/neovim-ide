@@ -58,7 +58,7 @@ ENV LC_ALL="en_US.UTF-8"
 ENV LANGUAGE="en_US.UTF-8"
 
 # install gcloud
-RUN curl -sSL https://sdk.cloud.google.com | bash
+RUN curl -sSL https://sdk.cloud.google.com | /bin/zsh
 ENV PATH $PATH:/root/google-cloud-sdk/bin
 
 RUN git config --global user.email "andre@karrlein.com"
