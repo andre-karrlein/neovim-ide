@@ -61,4 +61,7 @@ ENV LANGUAGE="en_US.UTF-8"
 RUN curl -sSL https://sdk.cloud.google.com | bash
 ENV PATH $PATH:/root/google-cloud-sdk/bin
 
+RUN git config --global user.email "andre@karrlein.com"
+RUN git config --global user.name "Andre Karrlein"
+
 ENTRYPOINT [ "/bin/zsh" ]
