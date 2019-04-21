@@ -15,6 +15,7 @@ make \
 go \
 zsh \
 tmux \
+mosh-server \
 musl-dev \
 ca-certificates \
 && rm -rf /var/cache/apk/*
@@ -59,5 +60,7 @@ ENV LANGUAGE="en_US.UTF-8"
 # install gcloud
 RUN curl -sSL https://sdk.cloud.google.com | bash
 ENV PATH $PATH:/root/google-cloud-sdk/bin
+
+RUN mosh-server
 
 ENTRYPOINT [ "/bin/zsh" ]
