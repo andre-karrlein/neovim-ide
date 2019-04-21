@@ -1,3 +1,1 @@
-# Neovim IDE
-
-_TBA_
+# Workstation

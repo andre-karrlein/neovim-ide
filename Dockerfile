@@ -15,7 +15,6 @@ make \
 go \
 zsh \
 tmux \
-mosh-server \
 musl-dev \
 ca-certificates \
 && rm -rf /var/cache/apk/*
@@ -39,14 +38,14 @@ nvim --headless +UpdateRemotePlugins +qall
 RUN sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 
 # my dot files
-RUN cd /home && git clone https://github.com/andre-karrlein/dot-ak1.git && ln -s /home/dot-ak1/tmux.conf ~/.tmux.conf
+RUN cd /root && git clone https://github.com/andre-karrlein/dot-ak1.git && ln -s /root/dot-ak1/tmux.conf ~/.tmux.conf
 
 # install gotests
 RUN cd /root/go/bin && go get -u github.com/cweill/gotests/...
 
 # create code dir
-RUN mkdir /home/code
-WORKDIR /home
+RUN mkdir /root/code
+WORKDIR /root
 RUN sed -i 's/ash/zsh/g' /etc/passwd
 
 # install kubectl
@@ -60,7 +59,5 @@ ENV LANGUAGE="en_US.UTF-8"
 # install gcloud
 RUN curl -sSL https://sdk.cloud.google.com | bash
 ENV PATH $PATH:/root/google-cloud-sdk/bin
-
-RUN mosh-server
 
 ENTRYPOINT [ "/bin/zsh" ]
