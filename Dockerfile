@@ -65,6 +65,8 @@ ENV PATH $PATH:/root/google-cloud-sdk/bin
 RUN git config --global user.email "andre@karrlein.com"
 RUN git config --global user.name "Andre Karrlein"
 
-EXPOSE 6001
+EXPOSE 6001/udp
+
+RUN mosh-server
 
 ENTRYPOINT [ "/bin/zsh" ]
