@@ -15,6 +15,7 @@ make \
 go \
 zsh \
 tmux \
+docker \
 musl-dev \
 openssh-client \
 mosh-server \
