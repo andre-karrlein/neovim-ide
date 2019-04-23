@@ -39,9 +39,13 @@ nvim --headless +UpdateRemotePlugins +qall
 
 # install zsh
 RUN sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+RUN rm -f ~/.zshrc
 
 # my dot files
-RUN cd /root && git clone https://github.com/andre-karrlein/dot-ak1.git && ln -s /root/dot-ak1/tmux.conf ~/.tmux.conf
+RUN cd /root && git clone https://github.com/andre-karrlein/dot-ak1.git
+RUN ln -s /root/dot-ak1/tmux.conf ~/.tmux.conf && ln -s /root/dot-ak1/zshrc ~/.zshrc
+RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
 
 # install gotests
 RUN cd /root/go/bin && go get -u github.com/cweill/gotests/...
