@@ -122,9 +122,7 @@ let g:go_version_warning = 0
 let g:go_fmt_command = "goimports"
 let g:go_snippet_engine = "neosnippet"
 
-let g:gotests_bin = '/root/go/bin/gotests'
-
-let g:deoplete#sources#go#gocode_binary = '/root/go/bin/gocode'
+let g:deoplete#sources#go#gocode_binary = '/usr/local/go/bin/gocode'
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 let g:deoplete#enable_at_startup = 1
 
