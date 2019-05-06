@@ -85,6 +85,8 @@ RUN mkdir /run/sshd
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 RUN sed 's/#Port 22/Port 3222/' -i /etc/ssh/sshd_config
 
-EXPOSE 6001/udp 3222
+RUN curl -s https://github.com/cdr/code-server/releases/download/1.939-vsc1.33.1/code-server1.939-vsc1.33.1-linux-x64.tar.gz| tar -v -C /usr/local -xz
+
+EXPOSE 6001/udp 3222 8080 8099
 
 ENTRYPOINT [ "/bin/zsh" ]
