@@ -1,0 +1,5 @@
+{
+	"dockerComposeFile": "./docker-compose.development.yml",
+	"service": "vscode",
+	"workspaceFolder": "/workspaces"
+}

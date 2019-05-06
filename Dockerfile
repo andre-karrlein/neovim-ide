@@ -65,6 +65,7 @@ WORKDIR /root
 #install go
 RUN curl -s https://dl.google.com/go/go1.12.4.linux-amd64.tar.gz| tar -v -C /usr/local -xz
 ENV PATH $PATH:/usr/local/go/bin
+RUN go get -v github.com/uudashr/gopkgs/cmd/gopkgs && go get -v github.com/ramya-rao-a/go-outline && go get -v github.com/acroca/go-symbols && go get -v github.com/sqs/goreturns
 
 RUN nvim --headless -c "PlugInstall! | qall! " && \
 nvim --headless +UpdateRemotePlugins +qall
@@ -85,7 +86,11 @@ RUN mkdir /run/sshd
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 RUN sed 's/#Port 22/Port 3222/' -i /etc/ssh/sshd_config
 
-RUN wget https://github.com/cdr/code-server/releases/download/1.939-vsc1.33.1/code-server1.939-vsc1.33.1-linux-x64.tar.gz | tar -v -C /usr/local -xz
+COPY ./code-server /usr/local/bin/code-server
+COPY ./vscode-extensions/extensions /root/.local/share/code-server/extensions/.
+COPY ./settings.json /root/.local/share/code-server/.
+COPY ./vscode /usr/local/bin/vscode
+RUN chmod +x /usr/local/bin/vscode
 
 EXPOSE 6001/udp 3222 8080 8099
 

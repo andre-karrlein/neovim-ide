@@ -1,0 +1,25 @@
+version: '3.4'
+services:
+  vscode:
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+    shm_size: "512m"
+    working_dir: "/workspaces"
+    ports:
+     - "127.0.0.1:5901:5901"
+     - "127.0.0.1:6901:6901"
+    volumes:
+      - "repositories:/workspaces:delegated"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "${PWD}/..:${PWD}/.."
+      - "${PWD}:/headless/.vscode-remote/bin/dev:ro"
+      - "${HOME}/.gitconfig:/headless/.gitconfig"
+      - "${HOME}/.npmrc:/headless/.npmrc"
+      - "${HOME}/.vsce:/headless/.vsce"
+    environment:
+      - VNC_RESOLUTION=1920x1080
+
+volumes:
+  repositories:
+    name: repositories
