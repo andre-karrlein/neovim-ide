@@ -3,6 +3,9 @@ FROM ubuntu:disco
 ENV TZ=Europe/Berlin
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+ENV LANG="en_US.UTF-8"
+ENV LC_ALL="en_US.UTF-8"
+ENV LANGUAGE="en_US.UTF-8"
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y locales \
     && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
@@ -32,7 +35,9 @@ tmux \
 docker \
 mosh \
 ca-certificates \
-php
+openssh-server \
+php \
+php-mysql
 
 # install neovim plugins
 RUN pip3 install --upgrade pip setuptools && \
@@ -75,6 +80,11 @@ ENV PATH $PATH:/root/google-cloud-sdk/bin
 RUN git config --global user.email "andre@karrlein.com"
 RUN git config --global user.name "Andre Karrlein"
 
-EXPOSE 6001/udp
+ENV TERM screen-256color
+RUN mkdir /run/sshd
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+RUN sed 's/#Port 22/Port 3222/' -i /etc/ssh/sshd_config
+
+EXPOSE 6001/udp 3222
 
 ENTRYPOINT [ "/bin/zsh" ]
