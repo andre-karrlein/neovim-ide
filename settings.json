@@ -2,5 +2,6 @@
     "workbench.colorTheme": "Solarized Dark",
     "workbench.startupEditor": "newUntitledFile",
     "explorer.confirmDelete": false,
-    "resmon.showbattery": false
+    "resmon.showbattery": false,
+    "terminal.integrated.shell.linux": "/bin/zsh"
 }
