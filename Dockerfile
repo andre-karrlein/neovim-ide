@@ -78,6 +78,10 @@ RUN chmod 755 /usr/local/bin/kubectl
 RUN curl -sSL https://sdk.cloud.google.com | /bin/zsh
 ENV PATH $PATH:/root/google-cloud-sdk/bin
 
+# install docker compose
+RUN curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+RUN chmod +x /usr/local/bin/docker-compose
+
 RUN git config --global user.email "andre@karrlein.com"
 RUN git config --global user.name "Andre Karrlein"
 
