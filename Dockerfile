@@ -14,6 +14,9 @@ RUN apt-get update \
 ENV LANG en_US.UTF-8 
 ENV LC_ALL en_US.UTF-8
 
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu disco test"
+
 RUN apt-get update
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get install -yq git \
@@ -26,6 +29,7 @@ python3-pip \
 neovim \
 bash \
 curl \
+docker-ce \
 wget \
 tar \
 gcc \
