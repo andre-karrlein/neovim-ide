@@ -22,7 +22,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get install -yq git \
 silversearcher-ag \
 iputils \
-mysql \
+mysql-client \
 python \
 python-dev \
 python3 \
