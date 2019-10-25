@@ -1,3 +1,0 @@
-#!/bin/sh
-
-docker run --rm -it -v $(pwd):/home/code -w /home/code gcr.io/karrlein/workstation -c "nvim $1"
