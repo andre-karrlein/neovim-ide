@@ -52,7 +52,6 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 RUN mkdir -p ~/.config/nvim/plugged
-COPY ./init.vim /root/.config/nvim/init.vim
 
 # install zsh
 RUN sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
@@ -63,6 +62,7 @@ RUN chsh -s $(which zsh)
 RUN cd /root && git clone https://github.com/andre-karrlein/dot-ak1.git
 RUN ln -s /root/dot-ak1/tmux.conf ~/.tmux.conf && ln -s /root/dot-ak1/zshrc ~/.zshrc
 RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+RUN mv /root/dot-ak1/go-init.vim /root/.config/nvim/init.vim
 
 # create code dir
 RUN mkdir /root/code
