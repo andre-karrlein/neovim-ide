@@ -16,6 +16,7 @@ ENV LC_ALL en_US.UTF-8
 
 RUN apt-get install -y software-properties-common
 RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu disco test"
+RUN curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 
 RUN apt-get update
 ENV DEBIAN_FRONTEND=noninteractive
@@ -43,7 +44,16 @@ mosh \
 ca-certificates \
 openssh-server \
 php \
-php-mysql
+php-mysql \
+php-xml \
+php-openssl \
+php-mysqli \
+php-dom \
+php-curl \
+php-intl \
+php-json \
+php-tokenizer \
+nodejs
 
 # install neovim plugins
 RUN pip3 install --upgrade pip setuptools && \
@@ -62,7 +72,8 @@ RUN chsh -s $(which zsh)
 RUN cd /root && git clone https://github.com/andre-karrlein/dot-ak1.git
 RUN ln -s /root/dot-ak1/tmux.conf ~/.tmux.conf && ln -s /root/dot-ak1/zshrc ~/.zshrc
 RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-RUN mv /root/dot-ak1/go-init.vim /root/.config/nvim/init.vim
+RUN mv /root/dot-ak1/init.vim /root/.config/nvim/init.vim
+RUN cd /root/dot/ak1 && bash coc-settings.sh
 
 # create code dir
 RUN mkdir /root/code
@@ -71,7 +82,10 @@ WORKDIR /root
 #install go
 RUN curl -s https://dl.google.com/go/go1.12.4.linux-amd64.tar.gz| tar -v -C /usr/local -xz
 ENV PATH $PATH:/usr/local/go/bin
-RUN go get -v github.com/uudashr/gopkgs/cmd/gopkgs && go get -v github.com/ramya-rao-a/go-outline && go get -v github.com/acroca/go-symbols && go get -v github.com/sqs/goreturns
+RUN go get -v github.com/uudashr/gopkgs/cmd/gopkgs &&\
+go get -v github.com/ramya-rao-a/go-outline &&\
+go get -v github.com/acroca/go-symbols &&\
+go get -v github.com/sqs/goreturns
 
 RUN nvim --headless -c "PlugInstall! | qall! " && \
 nvim --headless +UpdateRemotePlugins +qall
@@ -95,12 +109,6 @@ ENV TERM screen-256color
 RUN mkdir /run/sshd
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 RUN sed 's/#Port 22/Port 3222/' -i /etc/ssh/sshd_config
-
-COPY ./code-server /usr/local/bin/code-server
-COPY ./vscode-extensions/extensions /root/.local/share/code-server/extensions/.
-COPY ./settings.json /root/.local/share/code-server/.
-COPY ./vscode /usr/local/bin/vscode
-RUN chmod +x /usr/local/bin/vscode
 
 EXPOSE 6001/udp 3222 8080 8099
 
